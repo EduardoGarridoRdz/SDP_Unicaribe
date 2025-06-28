@@ -331,6 +331,60 @@ class PerfilSniiViewSet(viewsets.ModelViewSet):
     queryset = PerfilSnii.objects.all()
     serializer_class = PerfilSniiSerializer
 
+    @action(detail=False, methods=['POST'])
+    def DevolverPerfilSnii(self, request):
+        try:
+            profesor = Profesor.objects.get(id_usuario=request.data)
+            perfilSnii = PerfilSnii.objects.get(id_profesor=profesor.id_profesor)
+            serializer = self.get_serializer(perfilSnii)
+
+            return Response({'status': 'success', 'data': serializer.data})
+
+        except PerfilSnii.DoesNotExist:
+            return Response({
+                'status': 'success', 
+                'data': False
+                })
+        
+        except Exception as e:
+            print(e)
+            return Response({
+                'status': 'error', 
+                'message': f'Error al cargar los datos' 
+                }, status=500)
+        
+    @action(detail=False, methods=['POST'])
+    def ActualizarPerfilSnii(self, request):
+        print(request.data)
+        try:
+            profesor = Profesor.objects.get(id_usuario=request.data['id_usuario'])
+            # Sí ya existe un perfil PRODEP asociado a un profesor lo actualiza
+            perfilSnii = PerfilSnii.objects.get(id_profesor=profesor.id_profesor)
+
+            perfilSnii.pertenece_snii = request.data['pertenece_snii']
+            perfilSnii.id_nivel = NivelInvestigador.objects.get(nivel_investigador=request.data['id_nivel'])
+            perfilSnii.vigencia_snii = request.data['vigencia_snii']
+            perfilSnii.save()     
+
+            return Response({'status': 'success', 'message': 'Perfil actualizado exitosamente'})
+
+        # En caso de que no exista un perfil, lo crea
+        except PerfilSnii.DoesNotExist:
+            PerfilSnii.objects.create(
+                id_profesor = profesor,
+                pertenece_snii = request.data['pertenece_snii'],
+                vigencia_snii = request.data['vigencia_snii'],
+                id_nivel = NivelInvestigador.objects.get(nivel_investigador=request.data['id_nivel'])
+            )
+
+            return Response({'status': 'success', 'message': 'Perfil añadido exitosamente'})
+
+        except Exception as e:
+            return Response({
+                'status': 'error', 
+                'message': f'Error al cargar los datos {str(e)}' 
+                }, status=500)
+
     
 class PerfilSeiiViewSet(viewsets.ModelViewSet):
     queryset = PerfilSeii.objects.all()
@@ -365,9 +419,9 @@ class PerfilSeiiViewSet(viewsets.ModelViewSet):
             # Sí ya existe un perfil PRODEP asociado a un profesor lo actualiza
             perfilSeii = PerfilSeii.objects.get(id_profesor=profesor.id_profesor)
 
-            perfilSeii.pertenece_prodep = request.data['pertenece_seii']
-            perfilSeii.nivel_Seii = NivelInvestigador.objects.get(nivel_investigador=request.data['nivel_seii'])
-            perfilSeii.vigencia_prodep = request.data['vigencia_seii']
+            perfilSeii.pertenece_seii = request.data['pertenece_seii']
+            perfilSeii.id_nivel = NivelInvestigador.objects.get(nivel_investigador=request.data['id_nivel'])
+            perfilSeii.vigencia_seii = request.data['vigencia_seii']
             perfilSeii.save()     
 
             return Response({'status': 'success', 'message': 'Perfil actualizado exitosamente'})
@@ -378,7 +432,7 @@ class PerfilSeiiViewSet(viewsets.ModelViewSet):
                 id_profesor = profesor,
                 pertenece_seii = request.data['pertenece_seii'],
                 vigencia_seii = request.data['vigencia_seii'],
-                id_nivel = NivelInvestigador.objects.get(nivel_investigador=request.data['nivel_seii'])
+                id_nivel = NivelInvestigador.objects.get(nivel_investigador=request.data['id_nivel'])
             )
 
             return Response({'status': 'success', 'message': 'Perfil añadido exitosamente'})
@@ -386,7 +440,7 @@ class PerfilSeiiViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({
                 'status': 'error', 
-                'message': f'Error al cargar los datos {str(e)}' 
+                'message': f'Error al cargar los datos' 
                 }, status=500)
 
 

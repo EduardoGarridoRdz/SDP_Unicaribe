@@ -24,6 +24,7 @@ export const API_CONFIG = {
     NIVEL_INVESTIGADOR_URL: 'profesor/nivel_investigador/',
     PERFIL_PRODEP_URL: 'profesor/perfil_prodep/',
     PERFIL_SEII_URL: 'profesor/perfil_seii/',
+    PERFIL_SNII_URL: 'profesor/perfil_snii/',
 
     // RUTAS DE ESTUDIANTES
     PROGRAMA_EDUCATIVO: "estudiante/programa_educativo/",
