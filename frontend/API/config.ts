@@ -1,5 +1,7 @@
-// Este archivo contiene la configuración de la API 
-// Se reserva la dirección debido a reglas de suguridad
+{/* Este archivo contiene las direcciones de la API 
+ Se reservan debido a reglas de seguridad para no
+
+ */}
 export const API_CONFIG = {
     BASE_URL: 'http://127.0.0.1:8000/api/',
 
@@ -28,5 +30,6 @@ export const API_CONFIG = {
 
     // RUTAS DE ESTUDIANTES
     PROGRAMA_EDUCATIVO: "estudiante/programa_educativo/",
+    PROCESAR_ARCHIVO: "estudiante/procesar_archivo/"
 
 }

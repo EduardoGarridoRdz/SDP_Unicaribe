@@ -1,5 +1,6 @@
 from django.db import models
-# Este archivo contiene todos los modelos de los estudiantes
+# Este archivo contiene todos los modelos (tablas de la base de datos) de los estudiantes
+# Modificar con precaución y campos específicos de cada modelo
 
 # MODELOS PARA LA CIUDAD, ESTADO Y PAÍS
 class Pais(models.Model):
@@ -94,6 +95,7 @@ class Estudiante(models.Model):
     hablante_indigena = models.BooleanField()
     nombre_lengua = models.CharField(max_length=255)
     promedio = models.FloatField()
+    titulado = models.BooleanField()
 
     class Meta:
         managed: True
@@ -186,7 +188,7 @@ class PracticaProf(models.Model):
     id_practica_prof = models.AutoField(primary_key=True)
     id_estudiante = models.ForeignKey(Estudiante, models.DO_NOTHING, db_column='id_estudiante')
     num_practica = models.IntegerField()
-    practica_internacional = models.BooleanField()
+    #practica_internacional = models.BooleanField()
     fecha_inicio = models.DateField()
     fecha_final = models.DateField()
     empresa = models.CharField(max_length=255)
@@ -242,3 +244,18 @@ class MovilidadAcad(models.Model):
     class Meta:
         managed: True
         db_table = 'vinculacion_acad'
+
+# MODELO DEL DEPARTAMENTO DE DESARROLLO ACADÉMICO (Tutorias tomadas por alumnos, realizada por profesores)
+''' No mover la importación del modelo Profesor debido a que causa un error
+por una importación circular'''
+
+# Modelo en desarrollo // completar el registro de tutorias con archivos excel //
+from profesores.models import Profesor
+class DesarrolloAcademico(models.Model):
+    id_desarrollo_academico = models.AutoField(primary_key=True)
+    id_profesor = models.ForeignKey(Profesor, models.DO_NOTHING, db_column='id_profesor')
+    id_estudiante = models.ForeignKey(Estudiante, models.DO_NOTHING, db_column='id_estudiante')
+    motivo_tutoria = models.CharField()
+    tipo_tutoria = models.BooleanField()
+    fecha_inicio = models.DateField()
+    fecha_final = models.DateField()

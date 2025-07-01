@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+''' Aquí se encuentras los archivos urls de cada aplicación del proyecto,
+    estas sirven para poder entrar a la API siguiendo un patron. Añade aquí
+    el archivo url de las aplicaciones que se vayan creando
+'''
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('usuarios.urls')),

@@ -3,6 +3,8 @@ import { Button } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import CircularProgress from '@mui/material/CircularProgress';
+import { API_CONFIG } from "../../../../API/config";
+import Alert from "@mui/material/Alert"
 
 // Estilos del botón //
 const VisuallyHiddenInput = styled("input")({
@@ -22,6 +24,7 @@ const VisuallyHiddenInput = styled("input")({
 const SubirExcel: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [alert, setAlert] = useState<{ severity: 'success' | 'error', message: string } | null>(null);
 
     // Función para mandar el archivo al backend //
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +32,7 @@ const SubirExcel: React.FC = () => {
 
         // Se comprueba si se ha seleccionado un archivo //
         if (!archivo) {
-            alert("Por favor, selecciona un archivo.");
+            setAlert({ severity: 'error', message: 'Selecciona un archivo' });
             return;
         }
 
@@ -42,8 +45,7 @@ const SubirExcel: React.FC = () => {
             formData.append("archivo", archivo);
 
             // Se envía el archivo al backend //
-            const respuesta = await fetch(
-                "http://127.0.0.1:8000/api/ProcesarExcel/",
+            const response = await fetch(API_CONFIG.BASE_URL + API_CONFIG.PROCESAR_ARCHIVO,
                 {
                     method: "POST",
                     // Enviar el FormData como cuerpo de la solicitud //
@@ -54,16 +56,18 @@ const SubirExcel: React.FC = () => {
                 }
             );
 
-            // Se recibe la respuesta del procesamiento del backend //
-            const respuestaJSON = await respuesta.json();
+            const datos = await response.json()
 
-            if (respuesta.ok) {
-                alert(respuestaJSON.message);
+            if (!response.ok) {
+                setAlert({ severity: 'error', message: datos.message })
             } else {
-                alert(respuestaJSON.message);
+                setAlert({ severity: 'success', message: datos.message })
             }
+
+
+
         } catch (error) {
-            alert(`Hubo un error al procesar el archivo. ${error}`);
+            setAlert({ severity: 'error', message: `Hubo un error al procesar el archivo. ${error}` });
         } finally {
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';
@@ -92,6 +96,12 @@ const SubirExcel: React.FC = () => {
                     <CircularProgress />
                 )
             }
+            {alert && (
+                <Alert severity={alert?.severity}>
+                    {
+                        alert.message
+                    }
+                </Alert>)}
         </>
     );
 };

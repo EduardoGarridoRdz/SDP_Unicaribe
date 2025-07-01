@@ -25,26 +25,29 @@ SECRET_KEY = 'django-insecure-m_u_%-it=9n)h^d52j2&s+dqa8y8xaf_mf09z#y4owk7&k*w=7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+'''Lista que permite recibir peticiones de diferentes direcciones,
+    por default escucha en todas, sin embargo, la lista de 
+    CORS_ALLOWED_ORIGIN resitringe el acceso a las añadidas ahí 
+'''
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
-
 INSTALLED_APPS = [
-    #Configuración default de DJango
+    # Configuraciones default de Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #Aplicaciones del proyecto
+    # Aplicaciones del proyecto (Añadir aquí se crean más)
     'estudiantes',
     'profesores',
     'usuarios',
-    #Librerías de terceros
+    # Librerías de terceros (Añadir aquí si se instalan más librerías)
     'pandas',
     'openpyxl',
+    # Librerías necesarias para crear/usar la API
     'rest_framework',
     'corsheaders'
 ]
@@ -60,6 +63,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+''' Esta lista sirve para dar acceso a la API a dispositivos
+    dentro de la red o fuera de ella. Solo añadir direcciones
+    de confianza para no exponer los datos.
+'''
 CORS_ALLOWED_ORIGINS = [
     'https://m36sl104-5173.usw3.devtunnels.ms',
     'http://localhost:5173',
@@ -89,6 +96,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+''' Configuración de la base de datos
+    modificar solo si es necesario, en caso contrario,
+    mantener esta configuración.
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

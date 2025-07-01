@@ -3,8 +3,10 @@ from rest_framework import routers
 from .views import *
 from .models import *
 
+'''Este archivo define las rutas para acceder a las views,
+cada ves que se crea una, se debe añadir aquí para acceder a ella.'''
 router = routers.DefaultRouter()
-
+'''Si la vista es un ViewSet, solo añadela como aparece abajo'''
 router.register(r'grado_academico', GradoAcademicoViewSet)
 router.register(r'tipo_profesor', TipoProfesorViewSet )
 router.register(r'profesor', ProfesorViewSet)
@@ -37,7 +39,7 @@ router.register(r'nivel_investigador', NivelInvestigadorViewSet)
 router.register(r'perfil_snii', PerfilSniiViewSet)
 router.register(r'perfil_seii', PerfilSeiiViewSet)
 
-
+'''Si no es un ViewSet, añadela siguiendo el patrón profesor/view'''
 urlpatterns = [
     path('profesor/', include(router.urls)),
     path('actualizar_profesor/', ActualizarProfesor)

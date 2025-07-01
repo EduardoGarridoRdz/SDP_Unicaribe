@@ -29,18 +29,20 @@ class ProfesorViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['GET', 'POST'])
     def DevolverProfesor(self, request):
         try:
-            # Obtiene los datos del profesor de la base de datos mediante el correo
+            # Obtiene el registro del profesor mediante su id_usuario enviado desde el frontend
             profesor = Profesor.objects.get(id_usuario=request.data)
-            # Devuelve los datos de acuerdo al serializador del profesor
+            ''' Devuelve los datos de acuerdo al serializador del profesor
+                que se definió en el archivo serializers.py
+            '''
             serializer = self.get_serializer(profesor)
             # Se responde al frontend con los datos obtenidos
             return Response({
                 'status': 'success', 
                 'data': serializer.data
             })
-        
-        # Si el profesor no existe, se le indica que verifique los datos
-        # Es poco posible que suceda, debido a que el dato central es el correo
+            '''En caso de que no existe un profesor con ese id_usuario, se le indica que ha habído un error,
+            esto es poco probable que suceda debido a que el profesor cuando inicia sesión se le devuelve su
+            id_usuario y se guarda en el localstorage del navegador'''
         except Profesor.DoesNotExist:
             return Response({'status': 'error', 'message': 'Error al obtener profesor'})
         
@@ -56,26 +58,34 @@ class EstudiosViewSet(viewsets.ModelViewSet):
     queryset = Estudios.objects.all()
     serializer_class = EstudiosSerializer
 
+    # Esta función devuelve los estudios que ha realizo el profesor
     @action(detail=False, methods=['POST'])
     def DevolverEstudios(self, request):
         try:
+            # Obtiene el registro del profesor mediante su id_usuario enviado desde el frontend
+            # Posteriormente se busca en los registros de los estudios el que coincida con el profesor
             profesor = Profesor.objects.get(id_usuario=request.data)
             estudios = Estudios.objects.get(id_profesor=profesor.id_profesor)
+            ''' Devuelve los datos de acuerdo al serializador de los estudios
+                que se definió en el archivo serializers.py
+            '''
             serializer = self.get_serializer(estudios)
             return Response({'status': 'success', 'data': serializer.data})
-
+            '''En caso de que el profesor no tenga estudios registrados, se devuelve un valor falso para
+                indicarle al frontend que cargue valores default en el formulario y no genere errores'''
         except Estudios.DoesNotExist:
             return Response({
                 'status': 'success', 
                 'data': False
                 })
-        
+        # Ante cualquier error se devuelve un mensaje al frontend indicandolo
         except Exception as e:
             return Response({
                 'status': 'error', 
                 'message': f'Error al cargar los datos {str(e)}' 
                 }, status=500)
     
+    # Esta función actualiza los estudios que han realizado los profesores
     @action(detail=False, methods=['POST'])
     def AñadirEstudios(self, request):
         try:
