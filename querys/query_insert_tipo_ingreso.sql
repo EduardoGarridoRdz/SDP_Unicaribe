@@ -1,0 +1,1 @@
+INSERT INTO tipo_ingreso (ingreso) VALUES ('EXM'), ('EQU'), ('HUE')

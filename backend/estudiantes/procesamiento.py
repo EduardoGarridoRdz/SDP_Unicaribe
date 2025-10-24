@@ -11,7 +11,7 @@ sirve para procesar los documentos de excel envíados desde el frontend'''
 # Nombres de los archivo que el sistema acepta
 Departamentos = ["ServiciosEscolares.xlsx", "PracticasProfesionales.xlsx",
                  "ServicioSocial.xlsx", "DesarrolloEstudiantil.xlsx",
-                 "DesarrolloAdemico.xlsx", "MovilidadAcademica.xlsx",
+                 "DesarrolloAdemico.xlsx", "VinculacionAcademica.xlsx",
                  "Idiomas.xlsx", "Tutoria.xlsx"]
 
 @csrf_exempt
@@ -218,7 +218,7 @@ INPUT: Dataframe que contiene todos los datos del archivo de Desarrollo Estudian
 OUTPUT: Ningun valor, solo añade los talleres"""        
 def ProcesarTaller(Datos):
     for index, row in Datos.iterrows():
-      
+        print(row['nombre_taller'])
         tallerComprobacion = Taller.objects.filter(
             id_estudiante = Estudiante.objects.get(matricula = row['matricula']),
             tipo_taller = TransformarBool(row['tipo_taller'], "Artístico y Cultural"),

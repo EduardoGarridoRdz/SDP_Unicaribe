@@ -2,7 +2,7 @@
 
 function Dashboard(pathname: String) {
     if (pathname === "/estudiantes/servicios-escolares") {
-        return "https://lookerstudio.google.com/embed/reporting/19b4d7b4-d026-4d42-bed0-b124173021e7/page/p_vocd4ud8qd"
+        return "http://localhost:8088/superset/dashboard/p/lQ5Gp97zo26/"
     }
     else if (pathname === "/estudiantes/practicas-profesionales") {
         return "https://lookerstudio.google.com/embed/reporting/19b4d7b4-d026-4d42-bed0-b124173021e7/page/p_0ah8pqj8qd"

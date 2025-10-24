@@ -1,0 +1,1 @@
+INSERT INTO estado_servicio (estado) VALUES ('No Iniciado'), ('Activo'), ('Acreditado')

@@ -42,7 +42,7 @@ function DemoPageContent({ pathname }: { pathname: string }) {
 
     return (
         <>
-            {pathname}
+            {/*pathname*/}
 
             {pathname.startsWith('/estudiantes') && (
                 <LayoutEstudiantes pathname={pathname} />
