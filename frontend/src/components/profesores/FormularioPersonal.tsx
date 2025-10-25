@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import {
     Grid, Paper, Typography, TextField, Radio, RadioGroup,
-    FormControlLabel, FormControl, FormLabel, Checkbox,
-    FormGroup, Button
+    FormControlLabel, FormControl, FormLabel, Button
 } from "@mui/material";
 
 import { API_CONFIG } from "../../../API/config";

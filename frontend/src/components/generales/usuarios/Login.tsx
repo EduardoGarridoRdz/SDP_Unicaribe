@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Box, Grid, TextField, Typography, Paper, InputAdornment, IconButton } from '@mui/material';
+import { Button, Grid, TextField, Typography, Paper, InputAdornment, IconButton } from '@mui/material';
 import logo from '../../../assets/logo_unicaribe.png';
 import { API_CONFIG } from '../../../../API/config';
 import useWindowSize from '../../../../API/WindowSize';
@@ -55,7 +55,7 @@ export default function Login() {
         }
     };
 
-    const { width, height } = useWindowSize();
+    const { height } = useWindowSize();
 
     return (
         <Grid sx={{ p: 5 }}>

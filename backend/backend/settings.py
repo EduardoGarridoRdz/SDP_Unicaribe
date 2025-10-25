@@ -71,6 +71,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://m36sl104-5173.usw3.devtunnels.ms',
     'http://localhost:5173',
     'http://192.168.0.112:5173',
+    'http://172.21.80.1:5173',
+    'http://0.0.0.0:5173'
 ]
 
 ROOT_URLCONF = 'backend.urls'
