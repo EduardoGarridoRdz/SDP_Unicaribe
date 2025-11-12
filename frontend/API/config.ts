@@ -3,7 +3,8 @@
 
  */}
 export const API_CONFIG = {
-    BASE_URL: 'http://127.0.0.1:8000/api/',
+    // Ajustar la IP por la del servidor 
+    BASE_URL: 'http://192.168.0.112:8000/api/',
 
     // RUTAS DE USUARIOS
     USUARIO_URL: 'usuario/usuario/',

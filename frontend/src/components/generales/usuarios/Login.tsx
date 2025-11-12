@@ -51,7 +51,7 @@ export default function Login() {
             }
 
         } catch (error) {
-            setAlert({ severity: 'error', message: error instanceof Error ? error.message : 'Correo o Contraseña incorrecta' });
+            setAlert({ severity: 'error', message: 'Correo o Contraseña incorrecta' });
         }
     };
 
@@ -96,7 +96,7 @@ export default function Login() {
                                 required
                                 fullWidth
                                 id="contrasena"
-                                label="Contrasena"
+                                label="Contraseña"
                                 name="contrasena"
                                 type="password"
                                 value={contrasena}
@@ -105,14 +105,15 @@ export default function Login() {
                                     endAdornment: (
                                         <InputAdornment position='end'>
                                             <IconButton
-                                                aria-label='toggle contrasena visibility'
+                                                aria-label='toggle password visibility'
                                                 onClick={handleClickMostrarContrasena}
-                                                edge="end">
+                                                edge="end"
+                                            >
                                                 {MostrarContrasena ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     ),
-                                    type: MostrarContrasena ? 'text' : 'contrasena'
+                                    type: MostrarContrasena ? 'text' : 'password'
                                 }}
                             />
 

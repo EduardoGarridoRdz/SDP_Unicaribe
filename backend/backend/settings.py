@@ -67,12 +67,12 @@ MIDDLEWARE = [
     dentro de la red o fuera de ella. Solo añadir direcciones
     de confianza para no exponer los datos.
 '''
+
 CORS_ALLOWED_ORIGINS = [
-    'https://m36sl104-5173.usw3.devtunnels.ms',
     'http://localhost:5173',
     'http://192.168.0.112:5173',
-    'http://172.21.80.1:5173',
-    'http://0.0.0.0:5173'
+    'http://0.0.0.0:5173',
+    'http://192.168.0.156:5173',
 ]
 
 ROOT_URLCONF = 'backend.urls'
